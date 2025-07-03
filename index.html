@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社長のお家探し - 役員社宅で手取りを最大化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 
+      Narrative Plan: Hook -> Core Benefit (Charts) -> Impact Slide -> Tax Savings -> Unique Benefit -> Interactive Simulator -> Final CTA.
+      Visualization Choices:
+      - Hook: Styled Text + Unicode Icons (No SVG/Mermaid). Goal: Inform.
+      - Core Benefit (Rent Split): Chart.js Donut Chart. Goal: Compare.
+      - Core Benefit (2-Year Cost): Chart.js Bar Chart. Goal: Compare.
+      - Impact Slide: Styled Text (Big Numbers) (No SVG/Mermaid). Goal: Inform.
+      - Tax Savings: Styled Text (Big Numbers) (No SVG/Mermaid). Goal: Inform.
+      - Unique Benefit: Styled HTML/CSS card (No SVG/Mermaid). Goal: Compare.
+      - Interactive Simulator: HTML form + JS calculation. Goal: Inform/Personalize.
+      - CTA: Styled HTML button (No SVG/Mermaid). Goal: Inform.
+      Color Palette: Merged "Energetic & Playful" with user-provided "Slate/Blue" for the simulator.
+      Confirmation: No SVG graphics or Mermaid JS are used in this document.
+    -->
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #00C2FF, #FF4B3E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            max-height: 40vh;
+            width: 100%;
+            max-width: 400px;
+        }
+        .result-card {
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+            overflow: hidden;
+        }
+        .result-card.show {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 1000px; /* Animate max-height */
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -120px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-5xl font-black gradient-text">その家賃、経費にしませんか？</h1>
+            <p class="mt-4 text-lg text-gray-600">法人経営者・役員の方、必見です。</p>
+        </header>
+
+        <main class="space-y-16">
+            
+            <section id="benefits">
+                <div class="text-center mb-8">
+                     <h2 class="text-2xl md:text-3xl font-bold">家賃の<span class="text-[#FF4B3E]">最大90%</span>を経費に。</h2>
+                     <p class="text-gray-600 mt-2">国が認める「役員社宅制度」で、これだけ負担が変わります。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="font-bold text-xl text-center mb-4">家賃30万円の場合の支払い割合</h3>
+                        <div class="chart-container">
+                            <canvas id="rentSplitChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                         <h3 class="font-bold text-xl text-center mb-4">2年間の個人負担額の差</h3>
+                        <div class="chart-container h-80">
+                            <canvas id="twoYearCostChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="impact">
+                <div class="card bg-[#1F2937] text-white text-center p-6 md:p-8">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">【家賃30万円の場合】2年間の<span class="text-[#00C2FF]">合計インパクト</span>は…</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto mb-8">個人負担の削減と法人税の節税効果を合わせると、これだけのメリットが生まれます。</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
+                        <div class="p-6 bg-gray-700 rounded-lg">
+                            <p class="text-lg text-gray-400">個人の負担削減額</p>
+                            <p class="text-3xl md:text-4xl font-bold text-[#00C2FF]">¥6,480,000</p>
+                        </div>
+                        <div class="p-6 bg-gray-700 rounded-lg">
+                            <p class="text-lg text-gray-400">法人税の削減額 (税率30%)</p>
+                            <p class="text-3xl md:text-4xl font-bold text-[#00C2FF]">¥1,944,000</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-[#FF8A00] to-[#FF4B3E] p-6 rounded-lg transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-xl font-bold">2年間の合計削減インパクト</p>
+                        <p class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter">¥8,424,000</p>
+                    </div>
+                </div>
+            </section>
+
+             <section id="social-security-savings">
+                <div class="card text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">さらに、<span class="gradient-text">手取り額そのもの</span>も増やせます</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">家賃負担分、役員報酬を最適化することで、個人の社会保険料や税金の負担が軽くなります。</p>
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <p class="text-lg">例えば、役員報酬月額60万円の方がこの制度を利用すると…</p>
+                        <p class="my-4 text-2xl font-bold">年間の税金・社会保険料を…</p>
+                        <p class="text-5xl md:text-6xl font-black text-[#FF4B3E] tracking-tighter whitespace-nowrap">約<span class="text-7xl md:text-8xl">96</span>万円</p>
+                        <p class="text-2xl font-bold mt-4">削減することも可能です！</p>
+                    </div>
+                     <p class="text-xs text-gray-500 mt-4">※ご年齢・ご家族構成・お住まいの地域等により変動します。上記は試算の一例です。</p>
+                </div>
+            </section>
+
+            <section id="usp">
+                 <div class="card text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">弊社だけの強み: <span class="gradient-text">家具・家電も経費化</span></h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">通常なら経費にできない、インテリアの費用までサポートします。</p>
+                    <div class="flex flex-wrap justify-center items-center gap-4 text-lg font-semibold text-gray-700">
+                        <span class="bg-blue-100 text-blue-800 py-2 px-4 rounded-full">🛋️ ソファ</span>
+                        <span class="bg-blue-100 text-blue-800 py-2 px-4 rounded-full">📺 大型テレビ</span>
+                        <span class="bg-blue-100 text-blue-800 py-2 px-4 rounded-full">🛏️ ベッド</span>
+                        <span class="bg-blue-100 text-blue-800 py-2 px-4 rounded-full">🧊 冷蔵庫</span>
+                        <span class="bg-blue-100 text-blue-800 py-2 px-4 rounded-full">➕ その他多数</span>
+                    </div>
+                 </div>
+            </section>
+            
+            <!-- New Simulator Section -->
+            <section id="cta" class="mt-16">
+                <div class="text-center max-w-3xl mx-auto">
+                     <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900">あなたのメリットを今すぐ診断</h2>
+                     <p class="text-slate-600 leading-relaxed">
+                         多くの方がご自身の役員報酬から税金や社会保険料が引かれた「手取り」で、毎月の家賃を支払っています。この「個人負担の家賃」を、役員社宅制度を使って「法人の経費」に切り替えるだけで、法人・個人双方に大きなキャッシュフローが生まれます。このシミュレーターで、そのインパクトを体感してください。
+                     </p>
+                </div>
+
+                <div class="text-center text-xs text-slate-500 my-8 max-w-2xl mx-auto border-t border-b border-slate-200 py-2">
+                    <p>【シミュレーションの主な前提】 法人税率: 30% / 社会保険料率: 30%（法人・個人合計） / 所得税・住民税は年収に応じた日本の標準的な税率・控除を適用して算出しています。</p>
+                </div>
+
+                <div id="simulator" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+                    <h3 class="text-xl md:text-2xl font-bold mb-6 text-center text-slate-900">節税額シミュレーター</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="compensation-input" class="block text-sm font-medium text-slate-700 mb-2">現在の役員報酬（月額）</label>
+                            <div class="flex items-center space-x-4">
+                                <input type="range" id="compensation-slider" min="200000" max="3000000" step="10000" value="1000000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="text" id="compensation-input" value="1,000,000" class="w-32 text-right bg-slate-100 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" inputmode="numeric">
+                                <span class="text-sm">円</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="rent-input" class="block text-sm font-medium text-slate-700 mb-2">現在の個人契約家賃（月額）</label>
+                            <div class="flex items-center space-x-4">
+                                <input type="range" id="rent-slider" min="100000" max="1000000" step="10000" value="300000" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="text" id="rent-input" value="300,000" class="w-32 text-right bg-slate-100 rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" inputmode="numeric">
+                                <span class="text-sm">円</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <button id="calculate-btn" class="bg-blue-600 text-white font-bold py-3 px-10 rounded-lg hover:bg-blue-700 transition duration-300 text-lg shadow-md hover:shadow-lg">
+                            創出されるキャッシュフローを計算
+                        </button>
+                    </div>
+                </div>
+
+                <div id="results" class="mt-12 max-w-4xl mx-auto result-card">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-center text-slate-900">シミュレーション結果</h3>
+                        <div class="text-center bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-8">
+                            <p class="text-lg text-slate-700">役員社宅制度を導入することで、新たに創出されるキャッシュフローは...</p>
+                            <p class="text-4xl md:text-5xl font-bold text-blue-600 my-4">年間 <span id="total-savings">0</span> 円</p>
+                            <p class="text-slate-600">この資金が、お客様の未来を守る新たな保険原資となります。</p>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-6 text-center">
+                            <div class="bg-slate-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-slate-800 mb-2 tooltip">
+                                    ① 法人税の削減
+                                    <span class="tooltiptext">会社が新たに負担する家賃が経費となり、その分法人税が圧縮されます。</span>
+                                </h4>
+                                <p class="text-2xl font-semibold text-green-600" id="corporate-tax-saving">0</p>
+                                <p class="text-sm text-slate-500">円/年</p>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-slate-800 mb-2 tooltip">
+                                    ② 社会保険料の削減
+                                    <span class="tooltiptext">役員報酬の減額により、会社・個人双方の社会保険料負担が軽減されます。</span>
+                                </h4>
+                                <p class="text-2xl font-semibold text-green-600" id="social-insurance-saving">0</p>
+                                <p class="text-sm text-slate-500">円/年</p>
+                            </div>
+                            <div class="bg-slate-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-slate-800 mb-2 tooltip">
+                                    ③ 所得税・住民税の削減
+                                    <span class="tooltiptext">役員報酬の減額により、役員個人の所得税・住民税も軽減されます。</span>
+                                </h4>
+                                <p class="text-2xl font-semibold text-green-600" id="income-tax-saving">0</p>
+                                <p class="text-sm text-slate-500">円/年</p>
+                            </div>
+                        </div>
+                         <div class="mt-6 text-center text-sm text-slate-500">
+                            <p>※役員個人の手取り額は変わらないまま、これだけの資金が創出されます。</p>
+                            <p>※本シミュレーションは概算です。正確な金額は個別の状況により変動します。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-slate-600 mb-6 max-w-xl mx-auto">弊社のサービスではシミュレーションよりもさらにお得になる仕組みを設けております。<br>もっと経費を有効に計上したい個人事業主の方もぜひご相談ください</p>
+                     <a href="https://409ilc.share-na2.hsforms.com/2uQu4eF7jQjmvL0CEcsKaIQ" target="_blank" class="inline-block bg-slate-800 text-white font-bold py-3 px-10 rounded-lg hover:bg-slate-900 transition duration-300 text-lg shadow-md hover:shadow-lg">
+                        お問い合わせはこちら
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <footer class="bg-slate-800 text-white mt-16 py-8">
+        <div class="container mx-auto text-center text-sm">
+            <p class="mb-2">株式会社グロースプロパティ</p>
+            <p>本シミュレーションに関するご相談・お問い合わせは担当者までご連絡ください。</p>
+            <p class="mt-4 text-xs text-slate-400">
+                出典：<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2600.htm" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-200">国税庁 タックスアンサー No.2600 役員に社宅などを貸したとき</a>
+            </p>
+        </div>
+    </footer>
+
+<script>
+    function wrapText(text, maxChars) {
+        if (typeof text !== 'string' || text.length <= maxChars) {
+            return text;
+        }
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + ' ' + word).trim().length > maxChars && currentLine.length > 0) {
+                lines.push(currentLine);
+                currentLine = word;
+            } else {
+                currentLine = (currentLine + ' ' + word).trim();
+            }
+        });
+        if (currentLine.length > 0) {
+            lines.push(currentLine);
+        }
+        return lines;
+    }
+
+    const defaultTooltipCallback = {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        }
+    };
+
+    const rentSplitCtx = document.getElementById('rentSplitChart').getContext('2d');
+    new Chart(rentSplitCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['会社負担 (90%)', '個人負担 (10%)'],
+            datasets: [{
+                data: [270000, 30000],
+                backgroundColor: ['#00C2FF', '#FF4B3E'],
+                borderColor: '#FFFFFF',
+                borderWidth: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        ...defaultTooltipCallback,
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(context.parsed);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const twoYearCostCtx = document.getElementById('twoYearCostChart').getContext('2d');
+    new Chart(twoYearCostCtx, {
+        type: 'bar',
+        data: {
+            labels: ['通常契約の場合', '役員社宅を利用'],
+            datasets: [{
+                label: '2年間の累計個人負担額 (円)',
+                data: [7200000, 720000],
+                backgroundColor: ['#FF8A00', '#00C2FF'],
+                borderRadius: 8,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, values) {
+                           return this.getLabelForValue(value).split(' ');
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        callback: function(value) {
+                            return (value / 10000) + '万円';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        ...defaultTooltipCallback,
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.x !== null) {
+                                label += new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(context.parsed.x);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            indexAxis: 'y',
+        }
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const CORPORATE_TAX_RATE = 0.30;
+        const SOCIAL_INSURANCE_RATE = 0.30;
+        const RESIDENT_TAX_RATE = 0.10;
+        const BASIC_DEDUCTION = 480000;
+
+        const compensationSlider = document.getElementById('compensation-slider');
+        const compensationInput = document.getElementById('compensation-input');
+        const rentSlider = document.getElementById('rent-slider');
+        const rentInput = document.getElementById('rent-input');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultsSection = document.getElementById('results');
+        const totalSavingsEl = document.getElementById('total-savings');
+        const corporateTaxSavingEl = document.getElementById('corporate-tax-saving');
+        const socialInsuranceSavingEl = document.getElementById('social-insurance-saving');
+        const incomeTaxSavingEl = document.getElementById('income-tax-saving');
+
+        const formatCurrency = (num) => new Intl.NumberFormat('ja-JP').format(num);
+        const parseCurrency = (str) => {
+            const parsed = parseFloat(String(str).replace(/,/g, ''));
+            return isNaN(parsed) ? 0 : parsed;
+        };
+        const floorToNearestTen = (num) => Math.floor(num / 10) * 10;
+
+        function syncInputs(slider, input) {
+            input.value = formatCurrency(slider.value);
+        }
+
+        function syncSlider(input, slider) {
+            const value = parseCurrency(input.value);
+            slider.value = value;
+            input.value = formatCurrency(value); 
+        }
+
+        compensationSlider.addEventListener('input', () => syncInputs(compensationSlider, compensationInput));
+        compensationInput.addEventListener('change', () => syncSlider(compensationInput, compensationSlider));
+        rentSlider.addEventListener('input', () => syncInputs(rentSlider, rentInput));
+        rentInput.addEventListener('change', () => syncSlider(rentInput, rentSlider));
+        calculateBtn.addEventListener('click', calculateSavings);
+
+        function calculateSavings() {
+            const monthlyCompensation = parseCurrency(compensationInput.value);
+            const monthlyRent = parseCurrency(rentInput.value);
+            
+            if (monthlyRent === 0) return;
+
+            const companyRentBurden = monthlyRent * 0.9;
+            let newMonthlyCompensation = monthlyCompensation - companyRentBurden;
+            if (newMonthlyCompensation < 0) newMonthlyCompensation = 0;
+
+            const annualCorporateTaxSaving = companyRentBurden * 12 * CORPORATE_TAX_RATE;
+            const compensationReduction = monthlyCompensation - newMonthlyCompensation;
+            const annualSocialInsuranceSaving = compensationReduction * 12 * SOCIAL_INSURANCE_RATE;
+            
+            const annualCompensationBefore = monthlyCompensation * 12;
+            const annualCompensationAfter = newMonthlyCompensation * 12;
+            const socialInsuranceDeductionBefore = annualCompensationBefore * (SOCIAL_INSURANCE_RATE / 2);
+            const socialInsuranceDeductionAfter = annualCompensationAfter * (SOCIAL_INSURANCE_RATE / 2);
+            const taxableIncomeBefore = calculateTaxableIncome(annualCompensationBefore, socialInsuranceDeductionBefore);
+            const taxableIncomeAfter = calculateTaxableIncome(annualCompensationAfter, socialInsuranceDeductionAfter);
+            const incomeTaxBefore = calculateIncomeTax(taxableIncomeBefore);
+            const incomeTaxAfter = calculateIncomeTax(taxableIncomeAfter);
+            const residentTaxBefore = taxableIncomeBefore * RESIDENT_TAX_RATE;
+            const residentTaxAfter = taxableIncomeAfter * RESIDENT_TAX_RATE;
+            const annualIncomeTaxSaving = (incomeTaxBefore + residentTaxBefore) - (incomeTaxAfter + residentTaxAfter);
+
+            const totalAnnualSavings = annualCorporateTaxSaving + annualSocialInsuranceSaving + annualIncomeTaxSaving;
+
+            totalSavingsEl.textContent = formatCurrency(floorToNearestTen(totalAnnualSavings));
+            corporateTaxSavingEl.textContent = formatCurrency(floorToNearestTen(annualCorporateTaxSaving));
+            socialInsuranceSavingEl.textContent = formatCurrency(floorToNearestTen(annualSocialInsuranceSaving));
+            incomeTaxSavingEl.textContent = formatCurrency(floorToNearestTen(annualIncomeTaxSaving));
+
+            resultsSection.classList.add('show');
+        }
+
+        function calculateSalaryIncomeDeduction(annualIncome) {
+            if (annualIncome <= 1625000) return 550000;
+            if (annualIncome <= 1800000) return annualIncome * 0.4 - 100000;
+            if (annualIncome <= 3600000) return annualIncome * 0.3 + 80000;
+            if (annualIncome <= 6600000) return annualIncome * 0.2 + 440000;
+            if (annualIncome <= 8500000) return annualIncome * 0.1 + 1100000;
+            return 1950000;
+        }
+
+        function calculateTaxableIncome(annualCompensation, socialInsuranceDeduction) {
+            const salaryIncomeDeduction = calculateSalaryIncomeDeduction(annualCompensation);
+            const taxableIncome = annualCompensation - salaryIncomeDeduction - socialInsuranceDeduction - BASIC_DEDUCTION;
+            return taxableIncome > 0 ? taxableIncome : 0;
+        }
+
+        function calculateIncomeTax(taxableIncome) {
+            const income = taxableIncome;
+            let tax = 0, deduction = 0;
+            if (income <= 1950000) { tax = income * 0.05; deduction = 0; }
+            else if (income <= 3300000) { tax = income * 0.10; deduction = 97500; }
+            else if (income <= 6950000) { tax = income * 0.20; deduction = 427500; }
+            else if (income <= 9000000) { tax = income * 0.23; deduction = 636000; }
+            else if (income <= 18000000) { tax = income * 0.33; deduction = 1536000; }
+            else if (income <= 40000000) { tax = income * 0.40; deduction = 2796000; }
+            else { tax = income * 0.45; deduction = 4796000; }
+            const calculatedTax = tax - deduction;
+            const finalTax = calculatedTax * 1.021; 
+            return finalTax > 0 ? finalTax : 0;
+        }
+    });
+</script>
+</body>
+</html>
