@@ -9,20 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- 
-      Narrative Plan: Hook -> Core Benefit (Charts) -> Impact Slide -> Tax Savings -> Unique Benefit -> Interactive Simulator -> Final CTA.
-      Visualization Choices:
-      - Hook: Styled Text + Unicode Icons (No SVG/Mermaid). Goal: Inform.
-      - Core Benefit (Rent Split): Chart.js Donut Chart. Goal: Compare.
-      - Core Benefit (2-Year Cost): Chart.js Bar Chart. Goal: Compare.
-      - Impact Slide: Styled Text (Big Numbers) (No SVG/Mermaid). Goal: Inform.
-      - Tax Savings: Styled Text (Big Numbers) (No SVG/Mermaid). Goal: Inform.
-      - Unique Benefit: Styled HTML/CSS card (No SVG/Mermaid). Goal: Compare.
-      - Interactive Simulator: HTML form + JS calculation. Goal: Inform/Personalize.
-      - CTA: Styled HTML button (No SVG/Mermaid). Goal: Inform.
-      Color Palette: Changed to a corporate blue and slate gray theme, with orange as a highlight color.
-      Confirmation: No SVG graphics or Mermaid JS are used in this document.
-    -->
     <style>
         body {
             font-family: 'Noto Sans JP', 'Inter', sans-serif;
@@ -219,18 +205,10 @@
                             <p class="text-4xl md:text-5xl font-bold text-blue-600 my-4">年間 <span id="total-savings">0</span> 円</p>
                             <p class="text-slate-600">この資金が社長の手元に残ります。</p>
                         </div>
-                        <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="grid md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
                             <div class="bg-slate-100 p-4 rounded-lg">
                                 <h4 class="font-bold text-slate-800 mb-2 tooltip">
-                                    ① 法人税の削減
-                                    <span class="tooltiptext">会社が新たに負担する家賃が経費となり、その分法人税が圧縮されます。</span>
-                                </h4>
-                                <p class="text-2xl font-semibold text-green-600" id="corporate-tax-saving">0</p>
-                                <p class="text-sm text-slate-500">円/年</p>
-                            </div>
-                            <div class="bg-slate-100 p-4 rounded-lg">
-                                <h4 class="font-bold text-slate-800 mb-2 tooltip">
-                                    ② 社会保険料の削減
+                                    ① 社会保険料の削減
                                     <span class="tooltiptext">役員報酬の減額により、会社・個人双方の社会保険料負担が軽減されます。</span>
                                 </h4>
                                 <p class="text-2xl font-semibold text-green-600" id="social-insurance-saving">0</p>
@@ -238,7 +216,7 @@
                             </div>
                             <div class="bg-slate-100 p-4 rounded-lg">
                                 <h4 class="font-bold text-slate-800 mb-2 tooltip">
-                                    ③ 所得税・住民税の削減
+                                    ② 所得税・住民税の削減
                                     <span class="tooltiptext">役員報酬の減額により、役員個人の所得税・住民税も軽減されます。</span>
                                 </h4>
                                 <p class="text-2xl font-semibold text-green-600" id="income-tax-saving">0</p>
@@ -419,7 +397,6 @@
         const calculateBtn = document.getElementById('calculate-btn');
         const resultsSection = document.getElementById('results');
         const totalSavingsEl = document.getElementById('total-savings');
-        const corporateTaxSavingEl = document.getElementById('corporate-tax-saving');
         const socialInsuranceSavingEl = document.getElementById('social-insurance-saving');
         const incomeTaxSavingEl = document.getElementById('income-tax-saving');
 
@@ -456,7 +433,6 @@
             let newMonthlyCompensation = monthlyCompensation - companyRentBurden;
             if (newMonthlyCompensation < 0) newMonthlyCompensation = 0;
 
-            const annualCorporateTaxSaving = companyRentBurden * 12 * CORPORATE_TAX_RATE;
             const compensationReduction = monthlyCompensation - newMonthlyCompensation;
             const annualSocialInsuranceSaving = compensationReduction * 12 * SOCIAL_INSURANCE_RATE;
             
@@ -472,10 +448,9 @@
             const residentTaxAfter = taxableIncomeAfter * RESIDENT_TAX_RATE;
             const annualIncomeTaxSaving = (incomeTaxBefore + residentTaxBefore) - (incomeTaxAfter + residentTaxAfter);
 
-            const totalAnnualSavings = annualCorporateTaxSaving + annualSocialInsuranceSaving + annualIncomeTaxSaving;
+            const totalAnnualSavings = annualSocialInsuranceSaving + annualIncomeTaxSaving;
 
             totalSavingsEl.textContent = formatCurrency(ceilToNearestTen(totalAnnualSavings));
-            corporateTaxSavingEl.textContent = formatCurrency(ceilToNearestTen(annualCorporateTaxSaving));
             socialInsuranceSavingEl.textContent = formatCurrency(ceilToNearestTen(annualSocialInsuranceSaving));
             incomeTaxSavingEl.textContent = formatCurrency(ceilToNearestTen(annualIncomeTaxSaving));
 
