@@ -74,6 +74,33 @@
             visibility: visible;
             opacity: 1;
         }
+        .video-thumbnail-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .video-thumbnail-container .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        .video-thumbnail-container:hover .play-icon {
+            background-color: rgba(255, 0, 0, 0.8);
+        }
+        .video-thumbnail-container .play-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -157,6 +184,19 @@
                  </div>
             </section>
             
+            <section id="video-guide">
+                <div class="card text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">役員社宅制度について、動画で詳しく理解！</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-6">制度の概要やメリットについて、専門家が分かりやすく解説しています。</p>
+                    <a href="https://www.youtube.com/watch?v=UkdDZY8i-sA&t=1s" target="_blank" class="video-thumbnail-container rounded-lg overflow-hidden shadow-lg inline-block">
+                        <img src="https://img.youtube.com/vi/UkdDZY8i-sA/maxresdefault.jpg" alt="役員社宅制度 解説動画サムネイル" class="w-full h-auto">
+                        <div class="play-icon">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
             <!-- New Simulator Section -->
             <section id="cta" class="mt-16">
                 <div class="text-center max-w-3xl mx-auto">
