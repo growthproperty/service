@@ -241,47 +241,67 @@
                     <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
                         <h3 class="text-2xl md:text-3xl font-bold mb-6 text-center text-slate-900">シミュレーション結果</h3>
                         <div class="text-center bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-8">
-                            <p class="text-lg text-slate-700">役員社宅制度を導入することで、節税できる金額の合計は...</p>
+                            <p class="text-lg text-slate-700">役員社宅制度を導入することで、法人・個人合わせた改善効果は...</p>
                             <p class="text-4xl md:text-5xl font-bold text-blue-600 my-4">年間 <span id="total-savings">0</span> 円</p>
-                            <p class="text-slate-600">この資金が社長の手元に残ります。</p>
+                            <p class="text-slate-600">法人の負担軽減＋社長個人の手残り増加の合計です。</p>
                         </div>
-                        <div class="grid md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
-                            <!-- ① 社会保険料 -->
-                            <div class="bg-slate-100 p-4 rounded-lg">
-                                <h4 class="font-bold text-slate-800 mb-2 tooltip">
-                                    ① 社会保険料の削減
-                                    <span class="tooltiptext">役員報酬の減額により、会社・個人双方の社会保険料負担が軽減されます。役員である限り最低標準報酬月額（58,000円）を下限として計算します。</span>
-                                </h4>
-                                <p class="text-2xl font-semibold text-green-600" id="social-insurance-saving">0</p>
-                                <p class="text-sm text-slate-500 mb-3">円/年（法人＋個人の合計）</p>
-                                <button class="toggle-detail-btn text-xs text-blue-600 hover:text-blue-800 flex items-center justify-center mx-auto gap-1 transition-colors" data-target="detail-social">
-                                    <span class="btn-label">計算の内訳を見る</span>
-                                    <svg class="btn-arrow w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                                </button>
-                                <div id="detail-social" class="detail-panel overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
-                                    <div class="mt-3 text-left text-xs text-slate-600 bg-white rounded-lg p-3 space-y-1 leading-relaxed">
-                                        <p id="detail-social-content"></p>
+                        <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+                            <!-- 左列：法人側 -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                                <p class="text-xs font-bold text-blue-600 tracking-widest mb-3 text-center">🏢 法人側のメリット</p>
+                                <div class="text-center mb-4">
+                                    <p class="text-sm text-slate-600 mb-1">社会保険料の削減（会社負担分）</p>
+                                    <p class="text-2xl font-semibold text-green-600" id="si-company-saving">0</p>
+                                    <p class="text-xs text-slate-500">円/年</p>
+                                </div>
+                                <div class="border-t border-blue-200 pt-3 text-center">
+                                    <p class="text-sm font-bold text-blue-700">法人合計</p>
+                                    <p class="text-xl font-bold text-blue-700" id="total-company-saving">0</p>
+                                    <p class="text-xs text-slate-500">円/年</p>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <button class="toggle-detail-btn text-xs text-blue-600 hover:text-blue-800 flex items-center justify-center mx-auto gap-1" data-target="detail-social">
+                                        <span class="btn-label">計算の内訳を見る</span>
+                                        <svg class="btn-arrow w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <div id="detail-social" class="detail-panel overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                        <div class="mt-3 text-left text-xs text-slate-600 bg-white rounded-lg p-3 leading-relaxed">
+                                            <p id="detail-social-content"></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- ② 所得税・住民税 -->
-                            <div class="bg-slate-100 p-4 rounded-lg">
-                                <h4 class="font-bold text-slate-800 mb-2 tooltip">
-                                    ② 所得税・住民税の削減
-                                    <span class="tooltiptext">役員報酬の減額により、役員個人の所得税・住民税も軽減されます。</span>
-                                </h4>
-                                <p class="text-2xl font-semibold text-green-600" id="income-tax-saving">0</p>
-                                <p class="text-sm text-slate-500 mb-3">円/年</p>
-                                <button class="toggle-detail-btn text-xs text-blue-600 hover:text-blue-800 flex items-center justify-center mx-auto gap-1 transition-colors" data-target="detail-tax">
-                                    <span class="btn-label">計算の内訳を見る</span>
-                                    <svg class="btn-arrow w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                                </button>
-                                <div id="detail-tax" class="detail-panel overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
-                                    <div class="mt-3 text-left text-xs text-slate-600 bg-white rounded-lg p-3 space-y-1 leading-relaxed">
-                                        <p id="detail-tax-content"></p>
+
+                            <!-- 右列：個人側 -->
+                            <div class="bg-green-50 border border-green-200 rounded-xl p-5">
+                                <p class="text-xs font-bold text-green-600 tracking-widest mb-3 text-center">👤 個人側のメリット</p>
+                                <div class="text-center mb-3">
+                                    <p class="text-sm text-slate-600 mb-1">社会保険料の削減（個人負担分）</p>
+                                    <p class="text-xl font-semibold text-green-600" id="si-personal-saving">0</p>
+                                    <p class="text-xs text-slate-500">円/年</p>
+                                </div>
+                                <div class="text-center mb-4">
+                                    <p class="text-sm text-slate-600 mb-1">所得税・住民税の削減</p>
+                                    <p class="text-xl font-semibold text-green-600" id="income-tax-saving">0</p>
+                                    <p class="text-xs text-slate-500">円/年</p>
+                                    <button class="toggle-detail-btn text-xs text-blue-600 hover:text-blue-800 flex items-center justify-center mx-auto gap-1 mt-1" data-target="detail-tax">
+                                        <span class="btn-label">計算の内訳を見る</span>
+                                        <svg class="btn-arrow w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <div id="detail-tax" class="detail-panel overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                        <div class="mt-3 text-left text-xs text-slate-600 bg-white rounded-lg p-3 leading-relaxed">
+                                            <p id="detail-tax-content"></p>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="border-t border-green-200 pt-3 text-center">
+                                    <p class="text-sm font-bold text-green-700">個人合計</p>
+                                    <p class="text-xl font-bold text-green-700" id="total-personal-saving">0</p>
+                                    <p class="text-xs text-slate-500">円/年</p>
+                                </div>
                             </div>
+
                         </div>
                          <div class="mt-6 text-center text-sm text-slate-500">
                             <p>※役員個人の手取り額は変わらないまま、これだけの資金が創出されます。</p>
@@ -538,8 +558,6 @@
         const calculateBtn       = document.getElementById('calculate-btn');
         const resultsSection     = document.getElementById('results');
         const totalSavingsEl     = document.getElementById('total-savings');
-        const socialInsuranceSavingEl = document.getElementById('social-insurance-saving');
-        const incomeTaxSavingEl  = document.getElementById('income-tax-saving');
 
         const formatCurrency = (num) => new Intl.NumberFormat('ja-JP').format(Math.round(num));
         const parseCurrency  = (str) => { const p = parseFloat(String(str).replace(/,/g,'')); return isNaN(p) ? 0 : p; };
@@ -565,12 +583,12 @@
 
         function calculateIncomeTax(taxableIncome) {
             let tax = 0, ded = 0;
-            if      (taxableIncome <=  1950000) { tax = taxableIncome * 0.05; ded =       0; }
-            else if (taxableIncome <=  3300000) { tax = taxableIncome * 0.10; ded =   97500; }
-            else if (taxableIncome <=  6950000) { tax = taxableIncome * 0.20; ded =  427500; }
-            else if (taxableIncome <=  9000000) { tax = taxableIncome * 0.23; ded =  636000; }
-            else if (taxableIncome <= 18000000) { tax = taxableIncome * 0.33; ded = 1536000; }
-            else if (taxableIncome <= 40000000) { tax = taxableIncome * 0.40; ded = 2796000; }
+            if      (taxableIncome <=  1949000) { tax = taxableIncome * 0.05; ded =       0; }
+            else if (taxableIncome <=  3299000) { tax = taxableIncome * 0.10; ded =   97500; }
+            else if (taxableIncome <=  6949000) { tax = taxableIncome * 0.20; ded =  427500; }
+            else if (taxableIncome <=  8999000) { tax = taxableIncome * 0.23; ded =  636000; }
+            else if (taxableIncome <= 17999000) { tax = taxableIncome * 0.33; ded = 1536000; }
+            else if (taxableIncome <= 39999000) { tax = taxableIncome * 0.40; ded = 2796000; }
             else                                { tax = taxableIncome * 0.45; ded = 4796000; }
             return Math.max(0, (tax - ded) * 1.021);
         }
@@ -614,12 +632,19 @@
                 (taxBefore.incomeTax + taxBefore.residentTax) -
                 (taxAfter.incomeTax  + taxAfter.residentTax);
 
-            const totalAnnualSavings = annualSISaving + annualTaxSaving;
-
             // ---- 結果表示 ----
-            totalSavingsEl.textContent          = formatCurrency(ceilToNearestTen(totalAnnualSavings));
-            socialInsuranceSavingEl.textContent = formatCurrency(ceilToNearestTen(annualSISaving));
-            incomeTaxSavingEl.textContent       = formatCurrency(ceilToNearestTen(annualTaxSaving));
+            const annualSICompanySaving  = annualSISaving / 2;   // 法人折半分
+            const annualSIPersonalSaving = annualSISaving / 2;   // 個人折半分
+            const totalCompanySaving  = annualSICompanySaving;
+            const totalPersonalSaving = annualSIPersonalSaving + annualTaxSaving;
+            const totalAnnualSavings  = totalCompanySaving + totalPersonalSaving;
+
+            totalSavingsEl.textContent              = formatCurrency(ceilToNearestTen(totalAnnualSavings));
+            document.getElementById('si-company-saving').textContent   = formatCurrency(ceilToNearestTen(annualSICompanySaving));
+            document.getElementById('total-company-saving').textContent = formatCurrency(ceilToNearestTen(totalCompanySaving));
+            document.getElementById('si-personal-saving').textContent  = formatCurrency(ceilToNearestTen(annualSIPersonalSaving));
+            document.getElementById('income-tax-saving').textContent   = formatCurrency(ceilToNearestTen(annualTaxSaving));
+            document.getElementById('total-personal-saving').textContent = formatCurrency(ceilToNearestTen(totalPersonalSaving));
 
             // ---- 内訳テキスト ----
             const gradeNote = siAfter.row.grade === 1 && newMonthlyComp < 58000
@@ -632,17 +657,17 @@
             document.getElementById('detail-social-content').innerHTML =
                 `<strong>【導入前】</strong><br>` +
                 `月額報酬: ${formatCurrency(monthlyComp)}円 → <strong>等級${siBefore.row.grade}（標準報酬月額 ${formatCurrency(siBefore.row.stdMonthly)}円）</strong><br>` +
-                `健康保険料（全額）: ${formatCurrency(siBefore.row.healthTotal)}円/月<br>` +
-                `厚生年金保険料（全額）: ${formatCurrency(siBefore.row.pensionTotal)}円/月<br>` +
-                `社会保険料 合計（全額）: ${formatCurrency(siBefore.monthlyTotal)}円/月 → 年間 <strong>${formatCurrency(annualSITotalBefore)}円</strong><br>` +
+                `健康保険料（折半・会社負担）: ${formatCurrency(siBefore.row.healthTotal / 2)}円/月<br>` +
+                `厚生年金保険料（折半・会社負担）: ${formatCurrency(siBefore.row.pensionTotal / 2)}円/月<br>` +
+                `会社負担 合計: ${formatCurrency(siBefore.monthlyCompany)}円/月 → 年間 <strong>${formatCurrency(siBefore.monthlyCompany * 12)}円</strong><br>` +
                 `<br><strong>【導入後】</strong><br>` +
                 `月額報酬: ${formatCurrency(newMonthlyComp)}円（家賃の90%分を報酬削減）→ <strong>等級${siAfter.row.grade}（標準報酬月額 ${formatCurrency(siAfter.row.stdMonthly)}円）</strong><br>` +
                 gradeNote +
-                `健康保険料（全額）: ${formatCurrency(siAfter.row.healthTotal)}円/月<br>` +
-                `厚生年金保険料（全額）: ${formatCurrency(siAfter.row.pensionTotal)}円/月<br>` +
-                `社会保険料 合計（全額）: ${formatCurrency(siAfter.monthlyTotal)}円/月 → 年間 <strong>${formatCurrency(annualSITotalAfter)}円</strong><br>` +
+                `健康保険料（折半・会社負担）: ${formatCurrency(siAfter.row.healthTotal / 2)}円/月<br>` +
+                `厚生年金保険料（折半・会社負担）: ${formatCurrency(siAfter.row.pensionTotal / 2)}円/月<br>` +
+                `会社負担 合計: ${formatCurrency(siAfter.monthlyCompany)}円/月 → 年間 <strong>${formatCurrency(siAfter.monthlyCompany * 12)}円</strong><br>` +
                 `<br>` + sameGradeNote +
-                `<strong class="text-green-700">削減額（法人＋個人合計）: ${formatCurrency(ceilToNearestTen(annualSISaving))}円/年</strong>`;
+                `<strong class="text-green-700">法人側 削減額: ${formatCurrency(ceilToNearestTen(annualSICompanySaving))}円/年</strong>`;
 
             document.getElementById('detail-tax-content').innerHTML =
                 `<strong>【導入前】</strong><br>` +
