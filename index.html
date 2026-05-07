@@ -197,7 +197,7 @@
                 </div>
             </section>
 
-            <!-- New Simulator Section -->
+            <!-- Simulator Section -->
             <section id="cta" class="mt-16">
                 <div class="text-center max-w-3xl mx-auto">
                      <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900">あなたのメリットを今すぐ診断</h2>
@@ -207,7 +207,7 @@
                 </div>
 
                 <div class="text-center text-xs text-slate-500 my-8 max-w-2xl mx-auto border-t border-b border-slate-200 py-2">
-                    <p>【シミュレーションの主な前提】 法人税率: 30% / 社会保険料率: 30%（法人・個人合計） / 所得税・住民税は年収に応じた日本の標準的な税率・控除を適用して算出しています。</p>
+                    <p>【シミュレーションの主な前提】 社会保険料は令和8年3月分〜の東京支部 実際の等級テーブル（健康保険9.85% ＋ 厚生年金18.30%）を使用。介護保険非該当を前提。最低等級1（標準報酬月額58,000円）を下限とします。所得税・住民税は年収に応じた標準的な税率・控除を適用して算出しています。</p>
                 </div>
 
                 <div id="simulator" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
@@ -246,21 +246,41 @@
                             <p class="text-slate-600">この資金が社長の手元に残ります。</p>
                         </div>
                         <div class="grid md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
+                            <!-- ① 社会保険料 -->
                             <div class="bg-slate-100 p-4 rounded-lg">
                                 <h4 class="font-bold text-slate-800 mb-2 tooltip">
                                     ① 社会保険料の削減
-                                    <span class="tooltiptext">役員報酬の減額により、会社・個人双方の社会保険料負担が軽減されます。</span>
+                                    <span class="tooltiptext">役員報酬の減額により、会社・個人双方の社会保険料負担が軽減されます。役員である限り最低標準報酬月額（58,000円）を下限として計算します。</span>
                                 </h4>
                                 <p class="text-2xl font-semibold text-green-600" id="social-insurance-saving">0</p>
-                                <p class="text-sm text-slate-500">円/年</p>
+                                <p class="text-sm text-slate-500 mb-3">円/年（法人＋個人の合計）</p>
+                                <button class="toggle-detail-btn text-xs text-blue-600 hover:text-blue-800 flex items-center justify-center mx-auto gap-1 transition-colors" data-target="detail-social">
+                                    <span class="btn-label">計算の内訳を見る</span>
+                                    <svg class="btn-arrow w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </button>
+                                <div id="detail-social" class="detail-panel overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                    <div class="mt-3 text-left text-xs text-slate-600 bg-white rounded-lg p-3 space-y-1 leading-relaxed">
+                                        <p id="detail-social-content"></p>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- ② 所得税・住民税 -->
                             <div class="bg-slate-100 p-4 rounded-lg">
                                 <h4 class="font-bold text-slate-800 mb-2 tooltip">
                                     ② 所得税・住民税の削減
                                     <span class="tooltiptext">役員報酬の減額により、役員個人の所得税・住民税も軽減されます。</span>
                                 </h4>
                                 <p class="text-2xl font-semibold text-green-600" id="income-tax-saving">0</p>
-                                <p class="text-sm text-slate-500">円/年</p>
+                                <p class="text-sm text-slate-500 mb-3">円/年</p>
+                                <button class="toggle-detail-btn text-xs text-blue-600 hover:text-blue-800 flex items-center justify-center mx-auto gap-1 transition-colors" data-target="detail-tax">
+                                    <span class="btn-label">計算の内訳を見る</span>
+                                    <svg class="btn-arrow w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </button>
+                                <div id="detail-tax" class="detail-panel overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+                                    <div class="mt-3 text-left text-xs text-slate-600 bg-white rounded-lg p-3 space-y-1 leading-relaxed">
+                                        <p id="detail-tax-content"></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                          <div class="mt-6 text-center text-sm text-slate-500">
@@ -273,10 +293,10 @@
                 <div class="mt-16 text-center bg-slate-100 p-8 rounded-2xl">
                     <h3 class="text-xl md:text-2xl font-bold text-slate-900 mb-4">さらに大きなメリットがあります</h3>
                     <p class="text-slate-600 mb-6 max-w-xl mx-auto">弊社のサービスではシミュレーションよりもさらにお得になる仕組みを設けております。<br>もっと経費を有効に計上したい個人事業主の方もぜひご相談ください。</p>
-                     <a href="https://409ilc.share-na2.hsforms.com/2uQu4eF7jQjmvL0CEcsKaIQ" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-4 px-12 rounded-lg hover:bg-blue-700 transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+                     <a href="https://timerex.net/s/createground.corp_5fe3/7aebe46c" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-4 px-12 rounded-lg hover:bg-blue-700 transition duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
                         <span class="flex items-center justify-center">
                             <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            <span>無料相談・お問い合わせはこちら</span>
+                            <span>無料面談のご予約はこちら</span>
                         </span>
                     </a>
                 </div>
@@ -425,109 +445,249 @@
     });
     
     document.addEventListener('DOMContentLoaded', () => {
-        const CORPORATE_TAX_RATE = 0.30;
-        const SOCIAL_INSURANCE_RATE = 0.30;
         const RESIDENT_TAX_RATE = 0.10;
         const BASIC_DEDUCTION = 480000;
 
-        const compensationSlider = document.getElementById('compensation-slider');
-        const compensationInput = document.getElementById('compensation-input');
-        const rentSlider = document.getElementById('rent-slider');
-        const rentInput = document.getElementById('rent-input');
-        const calculateBtn = document.getElementById('calculate-btn');
-        const resultsSection = document.getElementById('results');
-        const totalSavingsEl = document.getElementById('total-savings');
-        const socialInsuranceSavingEl = document.getElementById('social-insurance-saving');
-        const incomeTaxSavingEl = document.getElementById('income-tax-saving');
+        // ============================================================
+        // 社会保険料 等級テーブル（令和8年3月分〜 東京支部）
+        // 介護保険非該当（40歳未満 or 65歳以上）を前提
+        // 各行: { grade, stdMonthly, lowerBound, healthTotal, pensionTotal }
+        //   healthTotal  = 健康保険料（全額）9.85%
+        //   pensionTotal = 厚生年金保険料（全額）18.300%
+        //   lowerBound   = 報酬月額の下限（円）。等級1は0円扱い
+        // ============================================================
+        const SI_TABLE = [
+            { grade:  1, stdMonthly:    58000, lowerBound:       0, healthTotal:  5713.0, pensionTotal:  16104.0 },
+            { grade:  2, stdMonthly:    68000, lowerBound:   63000, healthTotal:  6698.0, pensionTotal:  16104.0 },
+            { grade:  3, stdMonthly:    78000, lowerBound:   73000, healthTotal:  7683.0, pensionTotal:  16104.0 },
+            { grade:  4, stdMonthly:    88000, lowerBound:   83000, healthTotal:  8668.0, pensionTotal:  16104.0 },
+            { grade:  5, stdMonthly:    98000, lowerBound:   93000, healthTotal:  9653.0, pensionTotal:  17934.0 },
+            { grade:  6, stdMonthly:   104000, lowerBound:  101000, healthTotal: 10244.0, pensionTotal:  19032.0 },
+            { grade:  7, stdMonthly:   110000, lowerBound:  107000, healthTotal: 10835.0, pensionTotal:  20130.0 },
+            { grade:  8, stdMonthly:   118000, lowerBound:  114000, healthTotal: 11623.0, pensionTotal:  21594.0 },
+            { grade:  9, stdMonthly:   126000, lowerBound:  122000, healthTotal: 12411.0, pensionTotal:  23058.0 },
+            { grade: 10, stdMonthly:   134000, lowerBound:  130000, healthTotal: 13199.0, pensionTotal:  24522.0 },
+            { grade: 11, stdMonthly:   142000, lowerBound:  138000, healthTotal: 13987.0, pensionTotal:  25986.0 },
+            { grade: 12, stdMonthly:   150000, lowerBound:  146000, healthTotal: 14775.0, pensionTotal:  27450.0 },
+            { grade: 13, stdMonthly:   160000, lowerBound:  155000, healthTotal: 15760.0, pensionTotal:  29280.0 },
+            { grade: 14, stdMonthly:   170000, lowerBound:  165000, healthTotal: 16745.0, pensionTotal:  31110.0 },
+            { grade: 15, stdMonthly:   180000, lowerBound:  175000, healthTotal: 17730.0, pensionTotal:  32940.0 },
+            { grade: 16, stdMonthly:   190000, lowerBound:  185000, healthTotal: 18715.0, pensionTotal:  34770.0 },
+            { grade: 17, stdMonthly:   200000, lowerBound:  195000, healthTotal: 19700.0, pensionTotal:  36600.0 },
+            { grade: 18, stdMonthly:   220000, lowerBound:  210000, healthTotal: 21670.0, pensionTotal:  40260.0 },
+            { grade: 19, stdMonthly:   240000, lowerBound:  230000, healthTotal: 23640.0, pensionTotal:  43920.0 },
+            { grade: 20, stdMonthly:   260000, lowerBound:  250000, healthTotal: 25610.0, pensionTotal:  47580.0 },
+            { grade: 21, stdMonthly:   280000, lowerBound:  270000, healthTotal: 27580.0, pensionTotal:  51240.0 },
+            { grade: 22, stdMonthly:   300000, lowerBound:  290000, healthTotal: 29550.0, pensionTotal:  54900.0 },
+            { grade: 23, stdMonthly:   320000, lowerBound:  310000, healthTotal: 31520.0, pensionTotal:  58560.0 },
+            { grade: 24, stdMonthly:   340000, lowerBound:  330000, healthTotal: 33490.0, pensionTotal:  62220.0 },
+            { grade: 25, stdMonthly:   360000, lowerBound:  350000, healthTotal: 35460.0, pensionTotal:  65880.0 },
+            { grade: 26, stdMonthly:   380000, lowerBound:  370000, healthTotal: 37430.0, pensionTotal:  69540.0 },
+            { grade: 27, stdMonthly:   410000, lowerBound:  395000, healthTotal: 40385.0, pensionTotal:  75030.0 },
+            { grade: 28, stdMonthly:   440000, lowerBound:  425000, healthTotal: 43340.0, pensionTotal:  80520.0 },
+            { grade: 29, stdMonthly:   470000, lowerBound:  455000, healthTotal: 46295.0, pensionTotal:  86010.0 },
+            { grade: 30, stdMonthly:   500000, lowerBound:  485000, healthTotal: 49250.0, pensionTotal:  91500.0 },
+            { grade: 31, stdMonthly:   530000, lowerBound:  515000, healthTotal: 52205.0, pensionTotal:  96990.0 },
+            { grade: 32, stdMonthly:   560000, lowerBound:  545000, healthTotal: 55160.0, pensionTotal: 102480.0 },
+            { grade: 33, stdMonthly:   590000, lowerBound:  575000, healthTotal: 58115.0, pensionTotal: 107970.0 },
+            { grade: 34, stdMonthly:   620000, lowerBound:  605000, healthTotal: 61070.0, pensionTotal: 113460.0 },
+            { grade: 35, stdMonthly:   650000, lowerBound:  635000, healthTotal: 64025.0, pensionTotal: 118950.0 },
+            { grade: 36, stdMonthly:   680000, lowerBound:  665000, healthTotal: 66980.0, pensionTotal: 118950.0 }, // 厚年は等級35上限
+            { grade: 37, stdMonthly:   710000, lowerBound:  695000, healthTotal: 69935.0, pensionTotal: 118950.0 },
+            { grade: 38, stdMonthly:   750000, lowerBound:  730000, healthTotal: 73875.0, pensionTotal: 118950.0 },
+            { grade: 39, stdMonthly:   790000, lowerBound:  770000, healthTotal: 77815.0, pensionTotal: 118950.0 },
+            { grade: 40, stdMonthly:   830000, lowerBound:  810000, healthTotal: 81755.0, pensionTotal: 118950.0 },
+            { grade: 41, stdMonthly:   880000, lowerBound:  855000, healthTotal: 86680.0, pensionTotal: 118950.0 },
+            { grade: 42, stdMonthly:   930000, lowerBound:  905000, healthTotal: 91605.0, pensionTotal: 118950.0 },
+            { grade: 43, stdMonthly:   980000, lowerBound:  955000, healthTotal: 96530.0, pensionTotal: 118950.0 },
+            { grade: 44, stdMonthly:  1030000, lowerBound: 1005000, healthTotal:101455.0, pensionTotal: 118950.0 },
+            { grade: 45, stdMonthly:  1090000, lowerBound: 1055000, healthTotal:107365.0, pensionTotal: 118950.0 },
+            { grade: 46, stdMonthly:  1150000, lowerBound: 1115000, healthTotal:113275.0, pensionTotal: 118950.0 },
+            { grade: 47, stdMonthly:  1210000, lowerBound: 1175000, healthTotal:119185.0, pensionTotal: 118950.0 },
+            { grade: 48, stdMonthly:  1270000, lowerBound: 1235000, healthTotal:125095.0, pensionTotal: 118950.0 },
+            { grade: 49, stdMonthly:  1330000, lowerBound: 1295000, healthTotal:131005.0, pensionTotal: 118950.0 },
+            { grade: 50, stdMonthly:  1390000, lowerBound: 1355000, healthTotal:136915.0, pensionTotal: 118950.0 },
+        ];
 
-        const formatCurrency = (num) => new Intl.NumberFormat('ja-JP').format(num);
-        const parseCurrency = (str) => {
-            const parsed = parseFloat(String(str).replace(/,/g, ''));
-            return isNaN(parsed) ? 0 : parsed;
-        };
+        /**
+         * 月額報酬から等級テーブルを引いて月間社会保険料（全額）を返す。
+         * 役員は報酬がゼロでも等級1（58,000円）が下限。
+         * 戻り値: { row, monthlyTotal, monthlyPersonal, monthlyCompany }
+         */
+        function getSIByMonthlyComp(monthlyComp) {
+            // 下限は等級1
+            let row = SI_TABLE[0];
+            for (let i = SI_TABLE.length - 1; i >= 0; i--) {
+                if (monthlyComp >= SI_TABLE[i].lowerBound) {
+                    row = SI_TABLE[i];
+                    break;
+                }
+            }
+            const monthlyTotal    = row.healthTotal + row.pensionTotal;
+            const monthlyPersonal = monthlyTotal / 2;   // 折半
+            const monthlyCompany  = monthlyTotal / 2;
+            return { row, monthlyTotal, monthlyPersonal, monthlyCompany };
+        }
+
+        // ============================================================
+
+        const compensationSlider = document.getElementById('compensation-slider');
+        const compensationInput  = document.getElementById('compensation-input');
+        const rentSlider         = document.getElementById('rent-slider');
+        const rentInput          = document.getElementById('rent-input');
+        const calculateBtn       = document.getElementById('calculate-btn');
+        const resultsSection     = document.getElementById('results');
+        const totalSavingsEl     = document.getElementById('total-savings');
+        const socialInsuranceSavingEl = document.getElementById('social-insurance-saving');
+        const incomeTaxSavingEl  = document.getElementById('income-tax-saving');
+
+        const formatCurrency = (num) => new Intl.NumberFormat('ja-JP').format(Math.round(num));
+        const parseCurrency  = (str) => { const p = parseFloat(String(str).replace(/,/g,'')); return isNaN(p) ? 0 : p; };
         const ceilToNearestTen = (num) => Math.ceil(num / 10) * 10;
 
-        function syncInputs(slider, input) {
-            input.value = formatCurrency(slider.value);
-        }
+        function syncInputs(slider, input) { input.value = formatCurrency(slider.value); }
+        function syncSlider(input, slider) { const v = parseCurrency(input.value); slider.value = v; input.value = formatCurrency(v); }
 
-        function syncSlider(input, slider) {
-            const value = parseCurrency(input.value);
-            slider.value = value;
-            input.value = formatCurrency(value); 
-        }
-
-        compensationSlider.addEventListener('input', () => syncInputs(compensationSlider, compensationInput));
-        compensationInput.addEventListener('change', () => syncSlider(compensationInput, compensationSlider));
-        rentSlider.addEventListener('input', () => syncInputs(rentSlider, rentInput));
-        rentInput.addEventListener('change', () => syncSlider(rentInput, rentSlider));
+        compensationSlider.addEventListener('input',  () => syncInputs(compensationSlider, compensationInput));
+        compensationInput.addEventListener('change',  () => syncSlider(compensationInput,  compensationSlider));
+        rentSlider.addEventListener('input',          () => syncInputs(rentSlider, rentInput));
+        rentInput.addEventListener('change',          () => syncSlider(rentInput,  rentSlider));
         calculateBtn.addEventListener('click', calculateSavings);
 
-        function calculateSavings() {
-            const monthlyCompensation = parseCurrency(compensationInput.value);
-            const monthlyRent = parseCurrency(rentInput.value);
-            
-            if (monthlyRent === 0) return;
-
-            const companyRentBurden = monthlyRent * 0.9;
-            let newMonthlyCompensation = monthlyCompensation - companyRentBurden;
-            if (newMonthlyCompensation < 0) newMonthlyCompensation = 0;
-
-            const compensationReduction = monthlyCompensation - newMonthlyCompensation;
-            const annualSocialInsuranceSaving = compensationReduction * 12 * SOCIAL_INSURANCE_RATE;
-            
-            const annualCompensationBefore = monthlyCompensation * 12;
-            const annualCompensationAfter = newMonthlyCompensation * 12;
-            const socialInsuranceDeductionBefore = annualCompensationBefore * (SOCIAL_INSURANCE_RATE / 2);
-            const socialInsuranceDeductionAfter = annualCompensationAfter * (SOCIAL_INSURANCE_RATE / 2);
-            const taxableIncomeBefore = calculateTaxableIncome(annualCompensationBefore, socialInsuranceDeductionBefore);
-            const taxableIncomeAfter = calculateTaxableIncome(annualCompensationAfter, socialInsuranceDeductionAfter);
-            const incomeTaxBefore = calculateIncomeTax(taxableIncomeBefore);
-            const incomeTaxAfter = calculateIncomeTax(taxableIncomeAfter);
-            const residentTaxBefore = taxableIncomeBefore * RESIDENT_TAX_RATE;
-            const residentTaxAfter = taxableIncomeAfter * RESIDENT_TAX_RATE;
-            const annualIncomeTaxSaving = (incomeTaxBefore + residentTaxBefore) - (incomeTaxAfter + residentTaxAfter);
-
-            const totalAnnualSavings = annualSocialInsuranceSaving + annualIncomeTaxSaving;
-
-            totalSavingsEl.textContent = formatCurrency(ceilToNearestTen(totalAnnualSavings));
-            socialInsuranceSavingEl.textContent = formatCurrency(ceilToNearestTen(annualSocialInsuranceSaving));
-            incomeTaxSavingEl.textContent = formatCurrency(ceilToNearestTen(annualIncomeTaxSaving));
-
-            resultsSection.classList.add('show');
-        }
-
         function calculateSalaryIncomeDeduction(annualIncome) {
-            if (annualIncome <= 1625000) return 550000;
-            if (annualIncome <= 1800000) return annualIncome * 0.4 - 100000;
-            if (annualIncome <= 3600000) return annualIncome * 0.3 + 80000;
-            if (annualIncome <= 6600000) return annualIncome * 0.2 + 440000;
-            if (annualIncome <= 8500000) return annualIncome * 0.1 + 1100000;
+            if (annualIncome <= 1625000)  return 550000;
+            if (annualIncome <= 1800000)  return annualIncome * 0.4  - 100000;
+            if (annualIncome <= 3600000)  return annualIncome * 0.3  +  80000;
+            if (annualIncome <= 6600000)  return annualIncome * 0.2  + 440000;
+            if (annualIncome <= 8500000)  return annualIncome * 0.1  + 1100000;
             return 1950000;
         }
 
-        function calculateTaxableIncome(annualCompensation, socialInsuranceDeduction) {
-            const salaryIncomeDeduction = calculateSalaryIncomeDeduction(annualCompensation);
-            const taxableIncome = annualCompensation - salaryIncomeDeduction - socialInsuranceDeduction - BASIC_DEDUCTION;
-            return taxableIncome > 0 ? taxableIncome : 0;
+        function calculateIncomeTax(taxableIncome) {
+            let tax = 0, ded = 0;
+            if      (taxableIncome <=  1950000) { tax = taxableIncome * 0.05; ded =       0; }
+            else if (taxableIncome <=  3300000) { tax = taxableIncome * 0.10; ded =   97500; }
+            else if (taxableIncome <=  6950000) { tax = taxableIncome * 0.20; ded =  427500; }
+            else if (taxableIncome <=  9000000) { tax = taxableIncome * 0.23; ded =  636000; }
+            else if (taxableIncome <= 18000000) { tax = taxableIncome * 0.33; ded = 1536000; }
+            else if (taxableIncome <= 40000000) { tax = taxableIncome * 0.40; ded = 2796000; }
+            else                                { tax = taxableIncome * 0.45; ded = 4796000; }
+            return Math.max(0, (tax - ded) * 1.021);
         }
 
-        function calculateIncomeTax(taxableIncome) {
-            const income = taxableIncome;
-            let tax = 0, deduction = 0;
-            if (income <= 1950000) { tax = income * 0.05; deduction = 0; }
-            else if (income <= 3300000) { tax = income * 0.10; deduction = 97500; }
-            else if (income <= 6950000) { tax = income * 0.20; deduction = 427500; }
-            else if (income <= 9000000) { tax = income * 0.23; deduction = 636000; }
-            else if (income <= 18000000) { tax = income * 0.33; deduction = 1536000; }
-            else if (income <= 40000000) { tax = income * 0.40; deduction = 2796000; }
-            else { tax = income * 0.45; deduction = 4796000; }
-            const calculatedTax = tax - deduction;
-            const finalTax = calculatedTax * 1.021; 
-            return finalTax > 0 ? finalTax : 0;
+        function calcTaxBurden(annualComp, annualPersonalSI) {
+            const salaryDed     = calculateSalaryIncomeDeduction(annualComp);
+            const taxableIncome = Math.max(0, annualComp - annualPersonalSI - salaryDed - BASIC_DEDUCTION);
+            const incomeTax     = calculateIncomeTax(taxableIncome);
+            const residentTax   = taxableIncome * RESIDENT_TAX_RATE;
+            return { taxableIncome, incomeTax, residentTax, salaryDed };
         }
+
+        function calculateSavings() {
+            const monthlyComp = parseCurrency(compensationInput.value);
+            const monthlyRent = parseCurrency(rentInput.value);
+            if (monthlyRent === 0) return;
+
+            // 導入後の月額報酬（会社が家賃90%を負担 → その分を報酬から引く）
+            const companyRentBurden     = monthlyRent * 0.9;
+            const newMonthlyComp        = Math.max(0, monthlyComp - companyRentBurden);
+
+            // ---- 等級テーブルで社会保険料を引く ----
+            const siBefore = getSIByMonthlyComp(monthlyComp);
+            const siAfter  = getSIByMonthlyComp(newMonthlyComp);
+
+            const annualSITotalBefore   = siBefore.monthlyTotal    * 12;
+            const annualSITotalAfter    = siAfter.monthlyTotal     * 12;
+            const annualSIPersonalBefore = siBefore.monthlyPersonal * 12;
+            const annualSIPersonalAfter  = siAfter.monthlyPersonal  * 12;
+
+            const annualSISaving        = annualSITotalBefore - annualSITotalAfter; // 法人＋個人合計の削減
+
+            // ---- 所得税・住民税 ----
+            const annualCompBefore = monthlyComp    * 12;
+            const annualCompAfter  = newMonthlyComp * 12;
+
+            const taxBefore = calcTaxBurden(annualCompBefore, annualSIPersonalBefore);
+            const taxAfter  = calcTaxBurden(annualCompAfter,  annualSIPersonalAfter);
+
+            const annualTaxSaving =
+                (taxBefore.incomeTax + taxBefore.residentTax) -
+                (taxAfter.incomeTax  + taxAfter.residentTax);
+
+            const totalAnnualSavings = annualSISaving + annualTaxSaving;
+
+            // ---- 結果表示 ----
+            totalSavingsEl.textContent          = formatCurrency(ceilToNearestTen(totalAnnualSavings));
+            socialInsuranceSavingEl.textContent = formatCurrency(ceilToNearestTen(annualSISaving));
+            incomeTaxSavingEl.textContent       = formatCurrency(ceilToNearestTen(annualTaxSaving));
+
+            // ---- 内訳テキスト ----
+            const gradeNote = siAfter.row.grade === 1 && newMonthlyComp < 58000
+                ? `<span class="text-orange-600 font-semibold">※報酬が58,000円を下回るため、最低等級（等級1）で計算しています。</span><br>`
+                : '';
+            const sameGradeNote = siBefore.row.grade === siAfter.row.grade
+                ? `<span class="text-orange-600 font-semibold">⚠ 導入前後で等級が変わらないため、社会保険料の削減効果はゼロです。</span><br>`
+                : '';
+
+            document.getElementById('detail-social-content').innerHTML =
+                `<strong>【導入前】</strong><br>` +
+                `月額報酬: ${formatCurrency(monthlyComp)}円 → <strong>等級${siBefore.row.grade}（標準報酬月額 ${formatCurrency(siBefore.row.stdMonthly)}円）</strong><br>` +
+                `健康保険料（全額）: ${formatCurrency(siBefore.row.healthTotal)}円/月<br>` +
+                `厚生年金保険料（全額）: ${formatCurrency(siBefore.row.pensionTotal)}円/月<br>` +
+                `社会保険料 合計（全額）: ${formatCurrency(siBefore.monthlyTotal)}円/月 → 年間 <strong>${formatCurrency(annualSITotalBefore)}円</strong><br>` +
+                `<br><strong>【導入後】</strong><br>` +
+                `月額報酬: ${formatCurrency(newMonthlyComp)}円（家賃の90%分を報酬削減）→ <strong>等級${siAfter.row.grade}（標準報酬月額 ${formatCurrency(siAfter.row.stdMonthly)}円）</strong><br>` +
+                gradeNote +
+                `健康保険料（全額）: ${formatCurrency(siAfter.row.healthTotal)}円/月<br>` +
+                `厚生年金保険料（全額）: ${formatCurrency(siAfter.row.pensionTotal)}円/月<br>` +
+                `社会保険料 合計（全額）: ${formatCurrency(siAfter.monthlyTotal)}円/月 → 年間 <strong>${formatCurrency(annualSITotalAfter)}円</strong><br>` +
+                `<br>` + sameGradeNote +
+                `<strong class="text-green-700">削減額（法人＋個人合計）: ${formatCurrency(ceilToNearestTen(annualSISaving))}円/年</strong>`;
+
+            document.getElementById('detail-tax-content').innerHTML =
+                `<strong>【導入前】</strong><br>` +
+                `年収: ${formatCurrency(annualCompBefore)}円<br>` +
+                `個人負担の社会保険料（折半）: ${formatCurrency(annualSIPersonalBefore)}円/年<br>` +
+                `給与所得控除: ${formatCurrency(taxBefore.salaryDed)}円<br>` +
+                `課税所得: ${formatCurrency(taxBefore.taxableIncome)}円<br>` +
+                `所得税（復興税込）: ${formatCurrency(taxBefore.incomeTax)}円<br>` +
+                `住民税（10%）: ${formatCurrency(taxBefore.residentTax)}円<br>` +
+                `所得税＋住民税 合計: ${formatCurrency(taxBefore.incomeTax + taxBefore.residentTax)}円/年<br>` +
+                `<br><strong>【導入後】</strong><br>` +
+                `年収: ${formatCurrency(annualCompAfter)}円<br>` +
+                `個人負担の社会保険料（折半）: ${formatCurrency(annualSIPersonalAfter)}円/年<br>` +
+                `給与所得控除: ${formatCurrency(taxAfter.salaryDed)}円<br>` +
+                `課税所得: ${formatCurrency(taxAfter.taxableIncome)}円<br>` +
+                `所得税（復興税込）: ${formatCurrency(taxAfter.incomeTax)}円<br>` +
+                `住民税（10%）: ${formatCurrency(taxAfter.residentTax)}円<br>` +
+                `所得税＋住民税 合計: ${formatCurrency(taxAfter.incomeTax + taxAfter.residentTax)}円/年<br>` +
+                `<br><strong class="text-green-700">削減額: ${formatCurrency(ceilToNearestTen(annualTaxSaving))}円/年</strong>`;
+
+            resultsSection.classList.add('show');
+
+            // 再計算時にパネルをリセット
+            document.querySelectorAll('.detail-panel').forEach(p => {
+                p.style.maxHeight = '0';
+                const btn = document.querySelector(`[data-target="${p.id}"]`);
+                if (btn) {
+                    btn.querySelector('.btn-label').textContent = '計算の内訳を見る';
+                    btn.querySelector('.btn-arrow').style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+        // トグルボタン
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.toggle-detail-btn');
+            if (!btn) return;
+            const panel = document.getElementById(btn.dataset.target);
+            if (!panel) return;
+            const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+            panel.style.maxHeight = isOpen ? '0' : panel.scrollHeight + 'px';
+            btn.querySelector('.btn-label').textContent = isOpen ? '計算の内訳を見る' : '内訳を閉じる';
+            btn.querySelector('.btn-arrow').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
     });
 </script>
 </body>
 </html>
-
