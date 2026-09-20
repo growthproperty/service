@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RATE = 1.2
 WATCH_FEE = 5000
+TOKYO_ONLY = True      # 都内限定で掲載する
 
 def yen(text):
     """'15.5万円' -> 155000"""
@@ -60,6 +61,9 @@ def main(src):
             skipped.append((bid, no, "広告不可"))
             continue
         b = buildings.get(bid)
+        if TOKYO_ONLY and b and not (b[2] or "").startswith("東京都"):
+            skipped.append((bid, no, "都外"))
+            continue
         base = yen(rent_t)
         if not b or base is None:
             skipped.append((bid, no, "データ不足"))
