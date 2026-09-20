@@ -1,5 +1,3 @@
-const CONTACT_URL = "https://growth-property.jp/contact";
-
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const man = (n) => (n / 10000).toLocaleString("ja-JP", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const nearest = (r) => (r.stations || []).reduce((a, b) => {
@@ -151,15 +149,15 @@ async function initDetail() {
         </div>
       </div>
       <div class="cta">
-        <p class="cta-lead">内見・お申し込みのご相談はこちらから</p>
-        <a class="btn-contact" href="${CONTACT_URL}" target="_blank" rel="noopener">このお部屋について問い合わせる</a>
-        <div class="tel">お電話でのお問い合わせ<b>03-4563-9965</b><span>平日 10:00〜18:00</span></div>
-        <p class="note">お問い合わせの際は物件番号「${esc(r.id)}」をお伝えください。</p>
+        <p class="cta-lead">当社の取扱条件</p>
+        <ul class="cta-list">
+          <li>当社が借り上げたうえでご紹介する<b>転貸型</b>のお部屋です</li>
+          <li>賃料＝本来の募集賃料の<b>20%増＋見守りサービス 5,000円</b></li>
+          <li>礼金＝本来の条件<b>＋1ヶ月</b></li>
+          <li>見守りサービスは保証会社の保証に付帯する形でご提供します</li>
+        </ul>
+        <p class="note">お問い合わせの際は物件番号「${esc(r.id)}」をお知らせください。</p>
       </div>
-    </div>
-    <div class="lead-note">
-      <p class="lead-title">表示している賃料について</p>
-      <p>当社が借り上げてご紹介する転貸型の住宅です。賃料は<b>本来の募集賃料の20%増（1,000円単位に切り上げ）＋見守りサービス 5,000円</b>、礼金は<b>本来の条件＋1ヶ月分</b>です。見守りサービスは保証会社の保証に付帯する形でご提供します。</p>
     </div>
     <h2 class="section-title">お部屋の概要</h2>
     <table class="spec-table">${rows.map((x) =>
