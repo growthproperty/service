@@ -50,9 +50,16 @@ img { display: block; max-width: 100%; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
+/* intro */
+.intro { border: 1px solid var(--line); border-top: 3px solid var(--navy); border-radius: 4px; padding: 22px 26px; margin-top: 44px; font-size: 14px; }
+.intro p + p { margin-top: 8px; }
+.intro .intro-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.intro b { color: var(--text-strong); }
+.intro .intro-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
+
 /* filters */
 .filters {
-  margin: -28px auto 0; position: relative; z-index: 2;
+  margin: 24px auto 0; position: relative; z-index: 2;
   background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(10,35,66,.1);
   padding: 20px 24px; display: grid; gap: 16px;
   grid-template-columns: repeat(6, 1fr);
