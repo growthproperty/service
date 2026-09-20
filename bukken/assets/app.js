@@ -48,7 +48,7 @@ async function initList() {
   $("updated").textContent = d.updated.replaceAll("-", "/");
   $("next-update").textContent = d.next_update.replaceAll("-", "/");
 
-  let sortKey = "rent", sortAsc = true;
+  let sortKey = "seq", sortAsc = true;   // 既定は新着順（イタンジの並び順）
 
   const render = () => {
     const city = $("f-city").value, rent = +$("f-rent").value,
@@ -60,12 +60,7 @@ async function initList() {
       (!walk || (r.walk ?? 99) <= walk) &&
       (!area || r.area >= area)
     );
-    const val = { rent: (r) => r.rent, area: (r) => r.area, walk: (r) => r.walk ?? 99, building: (r) => r.building + r.room, age: (r) => r.age ?? 99 };
-    list.sort((a, b) => {
-      const x = val[sortKey](a), y = val[sortKey](b);
-      const c = typeof x === "string" ? x.localeCompare(y, "ja") : x - y;
-      return sortAsc ? c : -c;
-    });
+    list = sortGrouped(list, sortKey, sortAsc);
     $("count").textContent = list.length;
     $("rows").innerHTML = list.length
       ? list.map(row).join("")
@@ -86,9 +81,36 @@ async function initList() {
   );
   $("f-reset").addEventListener("click", () => {
     document.querySelectorAll(".filters select").forEach((s) => (s.value = ""));
+    sortKey = "seq"; sortAsc = true;
     render();
   });
   render();
+}
+
+// 同じ建物のお部屋は必ず隣同士に並べる。建物の順番は、その建物で一番上に来るお部屋で決める
+function sortGrouped(list, key, asc) {
+  const val = {
+    seq: (r) => r.seq,
+    rent: (r) => r.rent,
+    area: (r) => r.area,
+    walk: (r) => r.walk ?? 99,
+    building: (r) => r.building,
+  }[key];
+  const cmp = (x, y) => (typeof x === "string" ? x.localeCompare(y, "ja") : x - y) * (asc ? 1 : -1);
+
+  const groups = new Map();
+  for (const r of list) {
+    const key = r.building + "|" + r.address;   // 同名・同住所は同じ建物とみなす
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(r);
+  }
+  return [...groups.values()]
+    .map((rooms) => {
+      rooms.sort((a, b) => cmp(val(a), val(b)) || a.seq - b.seq);
+      return rooms;
+    })
+    .sort((a, b) => cmp(val(a[0]), val(b[0])) || a[0].seq - b[0].seq)
+    .flat();
 }
 
 function row(r) {
@@ -151,7 +173,7 @@ async function initDetail() {
       <div class="cta">
         <p class="cta-lead">当社の取扱条件</p>
         <ul class="cta-list">
-          <li>当社が借り上げたうえでご紹介する<b>転貸型</b>のお部屋です</li>
+          <li>ご成約時に当社が賃貸借契約を結び、入居者さまへ転貸する<b>転貸型</b>のお部屋です</li>
           <li>賃料＝本来の募集賃料の<b>20%増＋見守りサービス 5,000円</b></li>
           <li>礼金＝本来の条件<b>＋1ヶ月</b></li>
           <li>見守りサービスは保証会社の保証に付帯する形でご提供します</li>

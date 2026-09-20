@@ -51,6 +51,7 @@ def main(src):
 
     public, internal = [], []
     skipped = []
+    seq = 0                                   # イタンジの並び順＝新着順。これを保持する
     for r in raw["rooms"]:
         bid, no, rent_t, kanri_t, shiki_t, rei_t, layout, area_t, move_in = r[:9]
         adv = r[9] if len(r) > 9 else "可"
@@ -70,6 +71,8 @@ def main(src):
         rid = f"GP-{bid}-{no}"
         public.append({
             "id": rid,
+            "seq": seq,
+            "bid": bid,
             "building": b[1],
             "room": no,
             "address": b[2],
@@ -89,6 +92,7 @@ def main(src):
             "watch_service": True,
             "status": "募集中",
         })
+        seq += 1
         internal.append({
             "id": rid, "building": b[1], "room": no,
             "base_rent": base, "site_rent": rent,
@@ -96,7 +100,11 @@ def main(src):
             "deal_type": deal, "ad": adv,
         })
 
-    public.sort(key=lambda x: (x["city"], x["building"], x["room"]))
+    # 同じ建物のお部屋が離れないように、建物ごとにまとめる（建物の順番は新着順のまま）
+    order = {}
+    for r in public:
+        order.setdefault(r["bid"], r["seq"])
+    public.sort(key=lambda x: (order[x["bid"]], x["seq"]))
     out = {
         "updated": today.isoformat(),
         "next_update": (today + datetime.timedelta(days=14)).isoformat(),
