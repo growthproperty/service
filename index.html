@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>社長のお家探し - 役員社宅で手取りを最大化</title>
+    <meta name="description" content="役員社宅にするかしないかで、家賃の個人負担は最大90%変わります。法人設立1期目・決算書なしで審査に通らない社長も、都内の家賃20万円以上の住まいを役員社宅に。">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,6 +97,19 @@
         .video-thumbnail-container:hover .play-icon {
             background-color: rgba(255, 0, 0, 0.8);
         }
+        .cta-btn {
+            background-image: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            box-shadow: 0 10px 20px -8px rgba(37, 99, 235, 0.7);
+        }
+        .compare-vs {
+            font-family: 'Inter', sans-serif;
+        }
+        .check-item::before {
+            content: '\2713';
+            color: #2563eb;
+            font-weight: 900;
+            margin-right: 0.6rem;
+        }
         .video-thumbnail-container .play-icon svg {
             width: 40px;
             height: 40px;
@@ -103,17 +117,83 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 pb-24 md:pb-0">
 
     <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
 
-        <header class="text-center my-12">
-            <h1 class="text-4xl md:text-5xl font-black brand-text">その家賃、経費にしませんか？</h1>
-            <p class="mt-4 text-lg text-gray-600">法人経営者・役員の方、必見です。</p>
+        <header class="text-center mt-8 mb-14">
+            <div class="flex flex-wrap justify-center gap-2 mb-6">
+                <span class="bg-[#FF8A00] text-white text-xs md:text-sm font-bold px-4 py-2 rounded-full">法人設立1期目・決算書なしでもOK</span>
+                <span class="bg-blue-100 text-blue-800 text-xs md:text-sm font-bold px-4 py-2 rounded-full">都内・家賃20万円以上が目安</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black brand-text leading-tight">その家賃、<br class="sm:hidden">経費にしませんか？</h1>
+            <p class="mt-6 text-xl md:text-2xl font-bold text-slate-800 leading-relaxed">
+                役員社宅に<span class="underline decoration-[#FF8A00] decoration-4 underline-offset-4">するか・しないか</span>で、<br class="hidden sm:block">
+                家賃30万円なら毎月<span class="text-[#FF8A00]">27万円</span>も変わります。
+            </p>
+            <p class="mt-4 text-slate-600 leading-relaxed">
+                国が認める「役員社宅制度」なら、家賃の最大90%が法人の経費に。<br class="hidden md:block">
+                審査が通らずあきらめていた社長も、まずはご相談ください。
+            </p>
+            <div class="mt-8">
+                <a href="https://timerex.net/s/createground.corp_5fe3/7aebe46c" target="_blank" rel="noopener noreferrer" class="cta-btn inline-block text-white font-bold py-4 px-10 rounded-full text-lg hover:opacity-90 transition duration-300 transform hover:scale-105">
+                    無料面談を予約する（30分）
+                </a>
+                <p class="mt-3 text-xs text-slate-500">オンライン対応・ご相談は無料です</p>
+            </div>
         </header>
 
         <main class="space-y-16">
             
+            <!-- Before / After 比較 -->
+            <section id="compare">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold">役員社宅に<span class="brand-text">した場合</span>と<span class="text-slate-500">しない場合</span>で、<br class="hidden sm:block">これだけ違う！</h2>
+                    <p class="text-gray-600 mt-3">家賃30万円のお部屋に住む、法人代表の方のケース</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
+                    <!-- しない場合 -->
+                    <div class="bg-white border-2 border-slate-200 rounded-xl p-6 md:p-7">
+                        <p class="text-center text-slate-500 font-bold mb-1">役員社宅に しない</p>
+                        <p class="text-center text-xs text-slate-400 mb-5">個人名義で契約して、手取りから支払う</p>
+                        <div class="bg-slate-100 rounded-lg py-5 text-center mb-5">
+                            <p class="text-sm text-slate-500 mb-1">毎月の個人負担</p>
+                            <p class="text-4xl md:text-5xl font-black text-slate-600 tracking-tighter">300,000<span class="text-2xl font-bold">円</span></p>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-600">
+                            <li class="flex gap-2"><span class="text-slate-400 font-bold">&times;</span><span>家賃は<b>全額が自己負担</b>。経費にできない</span></li>
+                            <li class="flex gap-2"><span class="text-slate-400 font-bold">&times;</span><span>税金・社会保険料を引かれた<b>手取りから</b>支払う</span></li>
+                            <li class="flex gap-2"><span class="text-slate-400 font-bold">&times;</span><span>法人税の削減効果は<b>ゼロ</b></span></li>
+                            <li class="flex gap-2"><span class="text-slate-400 font-bold">&times;</span><span>ソファ・テレビなどの家具家電も<b>全額自腹</b></span></li>
+                        </ul>
+                    </div>
+
+                    <!-- する場合 -->
+                    <div class="bg-white border-2 border-blue-600 rounded-xl p-6 md:p-7 shadow-xl relative">
+                        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">おすすめ</span>
+                        <p class="text-center brand-text font-bold mb-1">役員社宅に する</p>
+                        <p class="text-center text-xs text-slate-400 mb-5">法人名義で契約して、家賃の90%を経費に</p>
+                        <div class="bg-blue-50 rounded-lg py-5 text-center mb-5">
+                            <p class="text-sm text-slate-500 mb-1">毎月の個人負担</p>
+                            <p class="text-4xl md:text-5xl font-black brand-text tracking-tighter">30,000<span class="text-2xl font-bold">円</span></p>
+                        </div>
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li class="flex gap-2"><span class="text-blue-600 font-bold">&#9678;</span><span>家賃の<b>最大90%（27万円）が法人の経費に</b></span></li>
+                            <li class="flex gap-2"><span class="text-blue-600 font-bold">&#9678;</span><span>個人の負担は<b>10分の1</b>に。手残りが増える</span></li>
+                            <li class="flex gap-2"><span class="text-blue-600 font-bold">&#9678;</span><span>法人税も<b>月81,000円分</b>圧縮（税率30%の場合）</span></li>
+                            <li class="flex gap-2"><span class="text-blue-600 font-bold">&#9678;</span><span>弊社なら<b>家具・家電まで経費化</b>をサポート</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-[#FF8A00] text-white rounded-xl p-6 text-center">
+                    <p class="font-bold text-lg">その差、毎月 <span class="compare-vs text-3xl md:text-4xl font-black align-middle">270,000</span> 円</p>
+                    <p class="mt-2 text-sm md:text-base opacity-95">年間では <b class="text-xl md:text-2xl font-black">324万円</b>、2年間で <b class="text-xl md:text-2xl font-black">648万円</b> の差になります</p>
+                </div>
+                <p class="text-xs text-slate-500 mt-3 text-center">※家賃30万円・賃貸料相当額が家賃の10%となるケースの試算です。実際の割合は物件の規模や固定資産税評価額等により変動します。</p>
+            </section>
+
             <section id="benefits">
                 <div class="text-center mb-8">
                      <h2 class="text-2xl md:text-3xl font-bold">家賃の<span class="text-slate-700">最大90%</span>を経費に。</h2>
@@ -170,6 +250,51 @@
                 </div>
             </section>
 
+            <!-- 1期目でも審査を通す -->
+            <section id="screening">
+                <div class="bg-white border-2 border-[#FF8A00] rounded-xl p-6 md:p-8">
+                    <p class="text-center text-[#FF8A00] font-bold text-sm mb-2">よくあるお悩み</p>
+                    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">「法人1期目だから」と、<br class="sm:hidden">審査で断られていませんか？</h2>
+                    <p class="text-slate-600 text-center max-w-2xl mx-auto mb-8 leading-relaxed">
+                        制度を知っていても、<b>法人名義の賃貸契約が通らなければ始められません。</b><br class="hidden md:block">
+                        設立したばかりの会社ほど、この入口でつまずきます。
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-slate-100 rounded-lg p-5 text-center">
+                            <p class="text-3xl mb-2">📄</p>
+                            <p class="font-bold text-slate-700 mb-1">決算書2期分を求められる</p>
+                            <p class="text-xs text-slate-500 leading-relaxed">1期目はそもそも提出できず、書類の段階で見送りに。</p>
+                        </div>
+                        <div class="bg-slate-100 rounded-lg p-5 text-center">
+                            <p class="text-3xl mb-2">📉</p>
+                            <p class="font-bold text-slate-700 mb-1">実績・利益がまだ無い</p>
+                            <p class="text-xs text-slate-500 leading-relaxed">創業直後や赤字決算だと、法人としての与信が足りない。</p>
+                        </div>
+                        <div class="bg-slate-100 rounded-lg p-5 text-center">
+                            <p class="text-3xl mb-2">🏙️</p>
+                            <p class="font-bold text-slate-700 mb-1">好条件の物件ほど厳しい</p>
+                            <p class="text-xs text-slate-500 leading-relaxed">都内のハイグレード物件は、法人審査の基準が上がりがち。</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <span class="inline-block bg-[#FF8A00] text-white font-bold px-6 py-2 rounded-full">そんな方こそ、私たちの出番です</span>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                        <h3 class="text-xl md:text-2xl font-bold text-center brand-text mb-5">設立1期目でも、役員社宅にできます。</h3>
+                        <ul class="space-y-3 text-slate-700 max-w-xl mx-auto">
+                            <li class="check-item flex items-start"><span>1期目・決算書なしでも<b>法人契約を検討できる物件</b>をご提案</span></li>
+                            <li class="check-item flex items-start"><span>審査に強い<b>オーナー・管理会社のネットワーク</b>から逆算してお部屋探し</span></li>
+                            <li class="check-item flex items-start"><span>保証会社や契約形態の組み合わせを含め、<b>通し方まで一緒に設計</b></span></li>
+                            <li class="check-item flex items-start"><span>社宅規程の整備や税理士との連携まで<b>ワンストップで対応</b></span></li>
+                        </ul>
+                        <p class="text-xs text-slate-500 mt-5 text-center">※物件・オーナー・保証会社の条件により、ご希望に沿えない場合もございます。まずは現状をお聞かせください。</p>
+                    </div>
+                </div>
+            </section>
+
             <section id="usp">
                  <div class="card text-center">
                     <h2 class="text-2xl md:text-3xl font-bold mb-4">弊社だけの強み: <span class="brand-text">家具・家電も経費化</span></h2>
@@ -184,6 +309,25 @@
                  </div>
             </section>
             
+            <section id="target">
+                <div class="card">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">こんな方に<span class="brand-text">向いています</span></h2>
+                    <p class="text-gray-600 text-center mb-7">ひとつでも当てはまれば、ご相談いただく価値があります。</p>
+                    <ul class="space-y-3 max-w-xl mx-auto text-slate-700">
+                        <li class="check-item flex items-start"><span>都内で<b>家賃20万円以上</b>のお住まい（またはこれから引っ越す予定）</span></li>
+                        <li class="check-item flex items-start"><span>法人の<b>代表・役員</b>の方（<b>設立1期目でもOK</b>）</span></li>
+                        <li class="check-item flex items-start"><span>いまは<b>個人名義</b>で家賃を払っている</span></li>
+                        <li class="check-item flex items-start"><span>手取りを増やしたい／<b>家具・家電まで経費化</b>したい</span></li>
+                        <li class="check-item flex items-start"><span>過去に<b>法人契約の審査で断られた</b>ことがある</span></li>
+                    </ul>
+                    <div class="text-center mt-8">
+                        <a href="https://timerex.net/s/createground.corp_5fe3/7aebe46c" target="_blank" rel="noopener noreferrer" class="cta-btn inline-block text-white font-bold py-4 px-10 rounded-full text-lg hover:opacity-90 transition duration-300 transform hover:scale-105">
+                            無料面談を予約する（30分）
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <section id="video-guide">
                 <div class="card text-center">
                     <h2 class="text-2xl md:text-3xl font-bold mb-4">役員社宅制度について、動画で詳しく理解！</h2>
@@ -324,7 +468,15 @@
         </main>
     </div>
     
-    <footer class="bg-slate-800 text-white mt-16 py-8">
+        <!-- スマホ用 追従CTA -->
+    <div class="fixed bottom-0 inset-x-0 z-50 md:hidden bg-white/95 backdrop-blur border-t border-slate-200 p-3">
+        <a href="https://timerex.net/s/createground.corp_5fe3/7aebe46c" target="_blank" rel="noopener noreferrer" class="cta-btn block text-center text-white font-bold py-3 rounded-full">
+            無料面談を予約する（30分）
+        </a>
+        <p class="text-center text-[10px] text-slate-500 mt-1">設立1期目・都内家賃20万円以上の方もお気軽に</p>
+    </div>
+
+<footer class="bg-slate-800 text-white mt-16 py-8">
         <div class="container mx-auto text-center text-sm">
             <p class="mb-2">株式会社グロースプロパティ</p>
             <p class="mb-4">本シミュレーションに関するご相談・お問い合わせは担当者までご連絡ください。</p>
